@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add/Edit floor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+
+    <div th:replace="/fragments/header :: header-css"/>
+
+</head>
+
+<body style="background-color:teal;">
+
+
+<div th:replace="/fragments/header :: header"/>
+
+<div class="container my-5">
+    <h3> Add floor</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/Card/createCard}" th:object="${card}" method="post">
+                    <div class="row">
+
+                        <div class="form-group col-md-8">
+                            <label for="name" class="col-form-label">Title</label>
+                            <input type="text" th:field="*{Number}" class="form-control"
+                                   id="name" placeholder="Title" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="Date_of" class="col-form-label">Date of editing</label>
+                            <input type="text" th:field="*{Date_of}" class="form-control"
+                                   id="Date_of" placeholder="Date of editing" />
+                        </div>
+
+
+
+                        <div class="form-group col-md-8">
+                            <label for="csv" class="col-form-label">Modifications</label>
+                            <input type="text" th:field="*{Csv}" class="form-control"
+                                   id="csv" placeholder="Modifications" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="owner" class="col-form-label">Building</label>
+                            <input type="text" th:field="*{client}" class="form-control"
+                                   id="owner" placeholder="Building ID" />
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+
+                        <input type="hidden" id="id" th:field="*{id}">
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

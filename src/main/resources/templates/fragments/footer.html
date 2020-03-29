@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>All Cards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+    <div th:replace="/fragments/header :: header-css"/>
+
+</head>
+
+
+<body>
+<br>
+<div th:fragment="footer">
+    <div th:align="center" sec:authorize="!isAuthenticated()">
+        Welcome to GeoInformationSystem!<br>
+        If you are new, you can register in our system by pressing this ->
+        <a data-th-align="center" th:href="@{/registration}">Registration</a> or<br>
+        you can login in our system and continue to work (press this button->
+
+        <a th:align="center"  th:href="@{/login}">Login</a>)
+    </div>
+    <hr/>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <span sec:authorize="isAuthenticated()">
+                    <span sec:authorize="hasAuthority('ROLE_ADMIN')">
+                    Wow! Admin is here.<br></span>
+                    Hello <span sec:authentication="name"></span>!
+                    Happy to see you again!
+            </span>
+
+                <div>
+                    <p class="text-center"align="center">&copy; Geosystem 2020</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript"
+            src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</div>
+</body>
+</html>

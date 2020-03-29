@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>All Buildings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+
+    <div th:replace="/fragments/header :: header-css"/>
+
+</head>
+
+<body style="background-color:teal;">
+
+
+<div th:replace="/fragments/header :: header"/>
+
+    <div class="container my-2">
+    <div class="card">
+    <div class="card-body">
+        <div th:switch="${clients}" class="container my-5">
+
+            <p class="my-5" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                <a href="/Client/edit" class="btn btn-primary">
+                <i class="fas fa-user-plus ml-2"> Add building </i></a>
+            </p>
+
+            <div class="col-md-10">
+                <h2 th:case="null">No record found !!</h2>
+                <div th:case="*">
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th><!--Name-->
+                                <th>Address</th><!--adress-->
+                                <th>City</th><!--city-->
+                                <th>Modificatons Number</th>
+                                <th sec:authorize="hasAuthority('ROLE_ADMIN')">Edit</th>
+                                <th sec:authorize="hasAuthority('ROLE_ADMIN')">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="client : ${clients}">
+                                <td th:text="${client.id}"></td>
+                                <td th:text="${client.firstName}"></td>
+                                <td th:text="${client.secondName}"></td>
+                                <td th:text="${client.lastName}"></td>
+
+                                <td
+                                <select th:field="*{client.cards}">
+                                    <option th:each="country : ${client.cards}"
+                                            th:value="${country.id}"
+                                            th:utext="${country.id}"
+                                    />
+                                </select>
+                                </td>
+
+                                <td sec:authorize="hasAuthority('ROLE_ADMIN')">
+                                    <a th:href="@{/Client/edit/{id}(id=${client.id})}" class="btn btn-primary">
+                                        <i class="fas fa-user-edit ml-2"></i>
+                                    </a>
+                                </td>
+                                <td sec:authorize="hasAuthority('ROLE_ADMIN')">
+                                    <a th:href="@{/Client/delete/{id}(id=${client.id})}" class="btn btn-primary">
+                                        <i class="fas fa-user-times ml-2"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+
+</html>
